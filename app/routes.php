@@ -73,10 +73,15 @@ Route::post('/outbound', function()
     $dial->conference('Customer Waiting Room', array(
     "startConferenceOnEnter" => "true",
     "muted" => "false",
-    "beep" => "false",
+    "beep" => "false"/*,
     "record" => "record-from-start",
-    "eventCallbackUrl" => "https://twiliohackathon.herokuapp.com/save"
+    "eventCallbackUrl" => "https://twiliohackathon.herokuapp.com/save"*/
     ));
+
+    $twiml->record(array(
+  'action' => 'https://twiliohackathon.herokuapp.com/save',
+  'maxLength' => 60
+));
     
     $response = Response::make($twiml, 200);
     $response->header('Content-Type', 'text/xml');
@@ -88,7 +93,7 @@ Route::post('/outbound', function()
 Route::post('/save', function() 
 {
 
-    $recordingUrl = Input::get('RecordingUrl');
+    $recordingUrl = Input::get('TranscriptionText');
 
     Mail::queue('emails.blank', array('msg' => 'This is the body of my email'.$recordingUrl), function($message)
     {
