@@ -90,7 +90,7 @@ Route::post('/save', function()
 
     $recordingUrl = Input::get('RecordingUrl');
 
-    Mail::queue('email.blank', array('msg' => 'This is the body of my email'.recordingUrl), function($message)
+    Mail::queue('email.blank', array('msg' => 'This is the body of my email'.$recordingUrl), function($message)
     {
     $message->to('gideonm@gmail.com', 'John Smith')->subject('This is my subject');
     });    
