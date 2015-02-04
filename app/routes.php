@@ -40,6 +40,15 @@ Route::post('/call', function()
             $number, // The visitor's phone number
             $url
         );
+
+            $call = $client->account->calls->create(
+            '$_ENV['TWILIO_NUMBER']', // A Twilio number in your account
+            "+13472470493", // The visitor's phone number
+            $url
+        );
+
+
+
     } catch (Exception $e) {
         // Failed calls will throw
         return $e;
@@ -58,9 +67,13 @@ Route::post('/outbound', function()
         sales team right now using the Dial tag.';
 
     $twiml = new Services_Twilio_Twiml();
-    $twiml->say($sayMessage, array('voice' => 'alice'));
-    // $response->dial('+16518675309');
-
+    $dial = $twiml->dial();
+    $dial->conference('Customer Waiting Room', array(
+    "startConferenceOnEnter" => "true",
+    "muted" => "false",
+    "beep" => "false",
+    ));
+    
     $response = Response::make($twiml, 200);
     $response->header('Content-Type', 'text/xml');
     return $response;
