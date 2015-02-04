@@ -42,7 +42,7 @@ Route::post('/call', function()
         );
 
             $call = $client->account->calls->create(
-            '$_ENV['TWILIO_NUMBER']', // A Twilio number in your account
+            $_ENV['TWILIO_NUMBER'], // A Twilio number in your account
             "+13472470493", // The visitor's phone number
             $url
         );
