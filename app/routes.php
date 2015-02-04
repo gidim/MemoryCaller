@@ -94,8 +94,8 @@ Route::post('/save', function()
     {
     $message->to('gideonm@gmail.com', 'John Smith')->subject('This is my subject');
     });    
-    $response = Response::make($twiml, 200);
-    $response->header('Content-Type', 'text/xml');
+    $response = Response::make("a response", 200);
+    $response->header('Content-Type', 'text/plain');
     return $response;
 });
 
