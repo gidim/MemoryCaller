@@ -71,15 +71,11 @@ Route::post('/outbound', function()
     $dial->conference('Customer Waiting Room', array(
     "startConferenceOnEnter" => "true",
     "muted" => "false",
-    "beep" => "false"/*,
+    "beep" => "false",
     "record" => "record-from-start",
-    "eventCallbackUrl" => "https://twiliohackathon.herokuapp.com/save"*/
+    "eventCallbackUrl" => "https://twiliohackathon.herokuapp.com/save"
     ));
 
-    $twiml->record(array(
-  'action' => 'https://twiliohackathon.herokuapp.com/save',
-  'maxLength' => 60
-));
     
     $response = Response::make($twiml, 200);
     $response->header('Content-Type', 'text/xml');
@@ -90,6 +86,8 @@ Route::post('/outbound', function()
 // POST URL to handle recording from twilio api
 Route::post('/save', function() 
 {
+        Log::error("save was called ###");
+
 
     $recordingUrl = Input::get('TranscriptionText');
 
