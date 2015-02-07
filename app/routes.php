@@ -73,7 +73,7 @@ Route::post('/outbound', function()
     "muted" => "false",
     "beep" => "false",
     "record" => "record-from-start",
-    "eventCallbackUrl" => "https://twiliohackathon.herokuapp.com/save"
+    "eventCallbackUrl" => "http://104.236.193.38/audio.php"
     ));
 
     
@@ -83,20 +83,5 @@ Route::post('/outbound', function()
 });
 
 
-// POST URL to handle recording from twilio api
-Route::post('/save', function() 
-{
-        Log::error("save was called ###");
 
-
-    $recordingUrl = Input::get('TranscriptionText');
-
-    Mail::queue('emails.blank', array('msg' => 'This is the body of my email'.$recordingUrl), function($message)
-    {
-    $message->to('gideonm@gmail.com', 'John Smith')->subject('This is my subject');
-    });    
-    $response = Response::make("a response", 200);
-    $response->header('Content-Type', 'text/plain');
-    return $response;
-});
 
