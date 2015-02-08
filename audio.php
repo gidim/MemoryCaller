@@ -6,14 +6,6 @@ require 'google_speech.php';
 $recordingURL = $_POST['RecordingUrl'];
 
 
-//save file
-//transcode to flac
-//send to google speech
-/*
-$s = new cgoogle_speech('AIzaSyDDihnHyFyS3HZJzKcAoGOKgKHu-znr3IM'); 
-$output = $s->process('@test.flac', 'en-US', 8000);      
-*/
-
 
 //send by email
 
